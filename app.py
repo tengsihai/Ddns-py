@@ -110,9 +110,9 @@ def job():
     client = session.client('route53')
     local_ipv4 = get_local_ipv4()
     local_ipv6 = get_local_ipv6()
-    logging.info(local_ipv4)
-    logging.info(local_ipv6)
-    if local_ipv4 is not old_ipv4 or local_ipv6 is not old_ipv6:
+    logging.info(f'ipv4:{local_ipv4}')
+    logging.info(f'ipv6:{local_ipv6}')
+    if  (local_ipv4 != old_ipv4) or (local_ipv6 != old_ipv6):
         logging.info("IP地址发生变化，正在更新DNS记录")
         old_ipv4 = local_ipv4
         old_ipv6 = local_ipv6
