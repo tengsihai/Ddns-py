@@ -122,7 +122,7 @@ def job():
 
 
 def main():
-    job_run_time = os.getenv('JOB_RUN_TIME')
+    job_run_time = int(os.getenv('JOB_RUN_TIME'))
     # 获取当前时间并减去1秒，以便立即执行
     first_run_time = datetime.now() - timedelta(seconds=1)
     scheduler = BlockingScheduler()
