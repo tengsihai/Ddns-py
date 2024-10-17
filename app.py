@@ -112,7 +112,7 @@ def job():
     local_ipv6 = get_local_ipv6()
     logging.info(f'ipv4:{local_ipv4}')
     logging.info(f'ipv6:{local_ipv6}')
-    if  (local_ipv4 != old_ipv4) or (local_ipv6 != old_ipv6):
+    if (local_ipv4 != old_ipv4) or (local_ipv6 != old_ipv6):
         logging.info("IP地址发生变化，正在更新DNS记录")
         old_ipv4 = local_ipv4
         old_ipv6 = local_ipv6
@@ -122,11 +122,12 @@ def job():
 
 
 def main():
+    job_run_time = os.getenv('JOB_RUN_TIME')
     # 获取当前时间并减去1秒，以便立即执行
     first_run_time = datetime.now() - timedelta(seconds=1)
     scheduler = BlockingScheduler()
     scheduler.add_job(job, 'date', run_date=first_run_time, args=[], kwargs={}, misfire_grace_time=2)
-    scheduler.add_job(job, 'interval', minutes=1, id='job_interval', misfire_grace_time=1)
+    scheduler.add_job(job, 'interval', minutes=job_run_time, id='job_interval', misfire_grace_time=1)
     scheduler.start()
 
 
