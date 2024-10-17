@@ -1,4 +1,5 @@
 import ipaddress
+import os
 import re
 import logging
 from datetime import timedelta, datetime
@@ -10,10 +11,10 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 
-aws_access_key_id = ''
-aws_secret_access_key = ''
-hosted_zone_id = ''
-domain = ''
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+hosted_zone_id = os.getenv('HOST_ZONE_ID')
+domain = os.getenv('DOMAIN')
 old_ipv4 = None
 old_ipv6 = None
 
